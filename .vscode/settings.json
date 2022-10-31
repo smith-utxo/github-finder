@@ -1,0 +1,7 @@
+{
+  "json.schemas": [],
+  "emmet.syntaxProfiles": {},
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
+}

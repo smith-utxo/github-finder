@@ -4,11 +4,13 @@ import About from './pages/about';
 import NotFound from './pages/NotFound';
 import Navbar from './Components/layout/Navbar';
 import Footer from './Components/layout/Footer';
+import {AlertProvider} from './context/alert/AlertContext'
 import {GithubProvider} from './context/github/GithubContext'
 
 function App() {
   return (
     <GithubProvider>
+    <AlertProvider>
     <Router>
      <div className="flex flex-col justify-between">
      <Navbar />
@@ -24,6 +26,7 @@ function App() {
      </div>
      <Footer />
      </Router>
+     </AlertProvider>
      </GithubProvider>
   );
 }

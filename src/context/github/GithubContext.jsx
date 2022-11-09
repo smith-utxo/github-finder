@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import { createRenderer } from 'react-dom/test-utils';
 import githubReducer from './GithubReducer';
 
 const GithubContext = createContext()
@@ -10,6 +11,7 @@ export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
     user: {},
+    repos: [],
     loading: true
   }
 
@@ -63,8 +65,32 @@ export const GithubProvider = ({ children }) => {
         })
       }
     }
-  
 
+     // Get User Repos 
+  const getUserRepos = async (login) => {
+    setLoading()
+
+    const params = new URLSearchParams({
+      sort: 'created',
+      per_page: 10,
+
+    })
+
+   const response = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`,
+      {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`
+        }
+      })
+
+    const data = await response.json();
+
+    dispatch({
+      type: 'GET_REPOS',
+      payload: data, 
+    })
+  }
+  
   // set loading
   const setLoading = () => dispatch({ type: 'SET_LOADING' })
 
@@ -74,9 +100,11 @@ export const GithubProvider = ({ children }) => {
         users: state.users,
         loading: state.loading,
         user: state.user,
+        repos:state.repos,
         searchUsers,
         clearUsers,
-        getUser,  
+        getUser,
+        getUserRepos,
       }}
     >
       {children}

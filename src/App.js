@@ -21,6 +21,7 @@ function App() {
      <Alert />
       <Routes>
         <Route path='/' element={<Home />}></Route>
+        <Route path='/github-finder' element={<Home />}></Route>
         <Route path='/about' element={<About />}></Route>
         <Route path='/user/:login' element={<User />}></Route>
         <Route path='/notfound' element={<NotFound />}></Route>
